@@ -29,6 +29,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -110,6 +111,8 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     private boolean mShouldShowProgress = false;
     private CharSequence mQuery = "";
     private String mVoiceText = "";
+
+    protected RecyclerView mRecyclerViewVariants;
 
     // ---------------------------------------------------------------------------------------------
     public SearchView(@NonNull Context context) {
@@ -515,6 +518,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     public void close(boolean animate, MenuItem menuItem) {
+        ((SearchVariantsAdapter) mRecyclerViewVariants.getAdapter()).setData(false);
         switch (mVersion) {
             case Version.MENU_ITEM:
                 if (animate) {
@@ -689,6 +693,10 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     public void showSuggestions() {
+        if (mRecyclerViewVariants.getVisibility() == GONE) {
+            mRecyclerViewVariants.setVisibility(View.VISIBLE);
+        }
+
         if (mFlexboxLayout.getChildCount() > 0 && mFlexboxLayout.getVisibility() == View.GONE) {
             mViewDivider.setVisibility(View.VISIBLE);
             mFlexboxLayout.setVisibility(View.VISIBLE);
@@ -702,6 +710,10 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
     }
 
     public void hideSuggestions() {
+        if (mRecyclerViewVariants.getVisibility() == VISIBLE) {
+            mRecyclerViewVariants.setVisibility(View.GONE);
+        }
+
         if (mFlexboxLayout.getVisibility() == View.VISIBLE) {
             mViewDivider.setVisibility(View.GONE);
             mFlexboxLayout.setVisibility(View.GONE);
@@ -892,6 +904,15 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         mCardView = findViewById(R.id.search_cardView);
         mLinearLayout = findViewById(R.id.search_linearLayout);
 
+        mRecyclerViewVariants = (RecyclerView) findViewById(R.id.rec_search_variants);
+//        mRecyclerViewVariants.setVisibility(GONE);
+        mRecyclerViewVariants.setLayoutManager(new GridLayoutManager(
+                mContext, 4, LinearLayoutManager.VERTICAL, false));
+
+        setVariantsAdapter();
+        mRecyclerViewVariants.setVisibility(GONE);
+
+
         mSearchArrowDrawable = new SearchArrowDrawable(mContext);
 
         mImageViewArrow = findViewById(R.id.search_imageView_arrow);
@@ -970,6 +991,18 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
         setTheme(Theme.LIGHT);
         setVoice(true);
     }
+
+    private void setVariantsAdapter() {
+        SearchVariantsAdapter adapter = new SearchVariantsAdapter(getContext());
+        adapter.addOnItemClickListener(new SearchVariantsAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position, String searchKey) {
+                setQuery(searchKey, true);
+            }
+        });
+        mRecyclerViewVariants.setAdapter(adapter);
+    }
+
 
     // todo annotation
     private void initStyle(AttributeSet attrs, int defStyleAttr, int defStyleRes) {

@@ -4,4 +4,28 @@
     <string name="search_app_name">SearchView</string>
     <string name="search_behavior" translatable="false">com.lapism.searchview.SearchBehavior</string>
 
+    <string name="search_content_description">Content Description</string>
+
+    <array name="search_variants_more">
+        <item>Dining</item>
+        <item>Prayer room</item>
+        <item>Washrooms</item>
+        <item>Baby room</item>
+        <item>ATM</item>
+        <item>Lifts</item>
+        <item>Escalators</item>
+        <item>Autopay</item>
+        <item>Pharmacy</item>
+        <item>Playground</item>
+        <item>Information</item>
+        <item>Less</item>
+    </array>
+
+    <array name="search_variants_less">
+        <item>Dining</item>
+        <item>Prayer room</item>
+        <item>Washrooms</item>
+        <item>More</item>
+    </array>
+
 </resources>

@@ -93,6 +93,19 @@
             </LinearLayout>
 
             <View
+                android:id="@+id/view_divider2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/search_divider"
+                android:background="?android:attr/listDivider"
+                android:gravity="start|center_vertical" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rec_search_variants"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never" />
+
+            <View
                 android:id="@+id/search_view_divider"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/search_divider"
