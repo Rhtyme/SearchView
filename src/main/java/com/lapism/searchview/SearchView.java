@@ -1158,7 +1158,7 @@ public class SearchView extends FrameLayout implements View.OnClickListener {
                         if (mShouldShowProgress) {
                             hideProgress();
                         }
-                        if (i > 0) {
+                        if (i > 0 && mRecyclerViewVariants.getVisibility() == VISIBLE) {
                             if (mRecyclerView.getVisibility() == View.GONE) {
                                 mViewDivider.setVisibility(View.VISIBLE);
                                 mRecyclerView.setVisibility(View.VISIBLE);

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/search_view_variant_item"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/search_item_height"
+    android:layout_height="wrap_content"
     android:background="?android:attr/selectableItemBackground"
     android:clickable="true"
     android:gravity="center_horizontal"
@@ -29,6 +29,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:maxLines="2"
+        android:text="some text"
         android:textSize="12sp" />
 
 </LinearLayout>
